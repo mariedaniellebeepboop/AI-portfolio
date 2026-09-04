@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marie Stoudt: AI-Assisted Operations &amp; Data Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10151C;
+    --bg-raised: #171E27;
+    --bg-raised-2: #1D2530;
+    --line: #2A3340;
+    --text: #E9EDF2;
+    --text-dim: #97A2B2;
+    --text-faint: #5E6A7A;
+    --amber: #E8A33D;
+    --amber-dim: #8A6529;
+    --teal: #4FB8A6;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --max: 780px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  ::selection{ background: var(--amber-dim); color: var(--text); }
+
+  /* -------- layout shell -------- */
+  .wrap{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  header.top{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(16,21,28,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .top-inner{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mark{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+  }
+  nav.top-nav{
+    display:flex;
+    gap: 22px;
+  }
+  nav.top-nav a{
+    text-decoration:none;
+    font-size: 14px;
+    color: var(--text-dim);
+    transition: color 0.15s ease;
+  }
+  nav.top-nav a:hover, nav.top-nav a:focus-visible{ color: var(--amber); }
+
+  /* -------- hero -------- */
+  .hero{
+    padding: 88px 0 64px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-kicker{
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--teal);
+    margin: 0 0 18px;
+  }
+  h1.hero-title{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(34px, 5.4vw, 50px);
+    line-height: 1.14;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+    max-width: 13ch;
+  }
+  .hero-lede{
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 52ch;
+    margin: 0 0 40px;
+  }
+
+  .telemetry{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .telemetry div{
+    padding: 18px 16px;
+    border-left: 1px solid var(--line);
+  }
+  .telemetry div:first-child{ border-left: none; }
+  .telemetry .num{
+    display:block;
+    font-family: var(--font-mono);
+    font-size: 22px;
+    color: var(--amber);
+    margin-bottom: 6px;
+  }
+  .telemetry .label{
+    display:block;
+    font-size: 12.5px;
+    color: var(--text-faint);
+    line-height: 1.4;
+  }
+
+  /* -------- section scaffolding -------- */
+  section.block{
+    padding: 72px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  section.block:last-of-type{ border-bottom: none; }
+
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+  .section-head h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0;
+  }
+  .section-head span{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-faint);
+  }
+
+  /* -------- project card -------- */
+  .project{
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 32px 32px 8px;
+    margin-bottom: 28px;
+  }
+  .project + .project{ margin-top: 28px; }
+
+  .project-tag{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--amber);
+    margin: 0 0 10px;
+  }
+  .project h3{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 21px;
+    margin: 0 0 14px;
+    line-height: 1.3;
+  }
+  .project p.desc{
+    color: var(--text-dim);
+    margin: 0 0 24px;
+    max-width: 62ch;
+  }
+
+  .project-sub{
+    margin: 0 0 20px;
+  }
+  .project-sub h4{
+    font-size: 13px;
+    text-transform: none;
+    color: var(--text-faint);
+    margin: 0 0 8px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .project-sub p{
+    margin: 0;
+    color: var(--text);
+    font-size: 15px;
+  }
+  .project-sub ul{
+    margin: 8px 0 0;
+    padding-left: 18px;
+    color: var(--text);
+    font-size: 15px;
+  }
+  .project-sub li{ margin-bottom: 5px; }
+
+  /* accordion */
+  .fold{
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+  }
+  .fold-btn{
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    font-weight: 500;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+  }
+  .fold-btn:hover{ color: var(--amber); }
+  .fold-btn .chev{
+    font-family: var(--font-mono);
+    color: var(--text-faint);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .fold-btn[aria-expanded="true"] .chev{ transform: rotate(45deg); }
+  .fold-panel{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+  }
+  .fold-panel-inner{
+    padding: 0 0 24px;
+  }
+  .fold-panel-inner p, .fold-panel-inner ul{
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+  .fold-panel-inner ul{ padding-left: 18px; margin: 8px 0 14px; }
+  .fold-panel-inner li{ margin-bottom: 6px; }
+  .fold-panel-inner strong{ color: var(--text); font-weight: 600; }
+
+  .skills-line{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 22px 0 26px;
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+  }
+  .skills-line span{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-dim);
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line);
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+
+  /* -------- pinned project 3 -------- */
+  .pinned{
+    border: 1px dashed var(--line);
+    border-radius: 6px;
+    padding: 28px 32px;
+    color: var(--text-faint);
+  }
+  .pinned .pin-tag{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    margin: 0 0 8px;
+  }
+  .pinned h3{
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--text-dim);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .pinned p{ margin: 0; font-size: 14.5px; max-width: 56ch; }
+
+  /* -------- productivity journal components -------- */
+  .stat-row-4{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .stat-row-4 div{ padding: 16px 14px; border-left: 1px solid var(--line); }
+  .stat-row-4 div:first-child{ border-left: none; }
+  .stat-row-4 .num{ display:block; font-family: var(--font-mono); font-size: 19px; color: var(--amber); margin-bottom: 5px; }
+  .stat-row-4 .label{ display:block; font-size: 11.5px; color: var(--text-faint); line-height: 1.35; }
+
+  .legend{ display:flex; gap: 18px; font-size: 12.5px; color: var(--text-dim); margin-bottom: 14px; }
+  .legend span{ display:inline-flex; align-items:center; gap: 6px; }
+  .swatch{ width: 10px; height: 10px; border-radius: 2px; display:inline-block; }
+
+  .bar-row{ display:grid; grid-template-columns: 190px 1fr 100px; gap: 14px; align-items:center; margin-bottom: 12px; }
+  .bar-row .cat{ font-size: 13px; color: var(--text); }
+  .bar-track{ position:relative; height: 16px; background: var(--bg-raised-2); border-radius: 3px; overflow:hidden; }
+  .bar-fill{ position:absolute; top:0; left:0; height:100%; border-radius:3px; }
+  .bar-fill.without{ background: var(--line); width:100%; }
+  .bar-fill.with{ background: var(--teal); }
+  .bar-row .ratio{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); text-align:right; }
+
+  .transcript .tline{ padding: 12px 0; border-bottom: 1px solid var(--line); display:grid; grid-template-columns: 80px 1fr; gap: 14px; }
+  .transcript .tline:last-child{ border-bottom:none; }
+  .transcript .who{ font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); padding-top: 1px; }
+  .transcript .tline.interviewer .who{ color: var(--teal); }
+  .transcript .tline.user .who{ color: var(--amber); }
+  .transcript p{ margin:0; font-size: 13.5px; color: var(--text-dim); line-height: 1.5; }
+
+  .scope-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .scope-card{ background: var(--bg-raised-2); border: 1px solid var(--line); border-radius: 5px; padding: 16px; }
+  .scope-card h5{ font-size: 13px; color: var(--text); margin: 0 0 10px; font-weight: 600; }
+  .scope-card .slabel{ display:block; color: var(--text-faint); font-size: 10.5px; margin-bottom: 2px; font-family: var(--font-mono); }
+  .scope-card .before{ color: var(--text-dim); font-size: 12.5px; margin: 0 0 9px; }
+  .scope-card .after{ color: var(--text); font-size: 12.5px; margin: 0; }
+
+  .rm-row{ display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .rm-item{ padding-right: 12px; }
+  .rm-item .phase{ font-family: var(--font-mono); font-size: 11px; color: var(--amber); margin-bottom: 8px; }
+  .rm-item h5{ font-size: 13.5px; color: var(--text); margin: 0 0 6px; font-weight: 600; }
+  .rm-item p{ color: var(--text-dim); font-size: 12px; margin: 0; line-height: 1.45; }
+
+  @media (max-width: 640px){
+    .stat-row-4{ grid-template-columns: 1fr 1fr; }
+    .bar-row{ grid-template-columns: 1fr; gap: 6px; }
+    .bar-row .ratio{ text-align:left; }
+    .scope-grid{ grid-template-columns: 1fr; }
+    .rm-row{ grid-template-columns: 1fr; }
+  }
+
+  /* -------- skills section -------- */
+  .skill-groups{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 48px;
+  }
+  .skill-group h4{
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--teal);
+    margin: 0 0 12px;
+    font-weight: 400;
+  }
+  .skill-group ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .skill-group li{
+    font-size: 14.5px;
+    color: var(--text-dim);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .skill-group li:last-child{ border-bottom: none; }
+
+  /* -------- footer -------- */
+  footer{
+    padding: 56px 0 72px;
+  }
+  footer h2{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0 0 14px;
+  }
+  footer p{
+    color: var(--text-dim);
+    max-width: 46ch;
+    margin: 0 0 26px;
+  }
+  .contact-row{
+    display:flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .contact-row a{
+    text-decoration: none;
+    font-size: 15px;
+    color: var(--text);
+    border-bottom: 1px solid var(--amber-dim);
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease;
+  }
+  .contact-row a:hover, .contact-row a:focus-visible{ border-color: var(--amber); }
+
+  .fine{
+    margin-top: 48px;
+    font-size: 12.5px;
+    color: var(--text-faint);
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px){
+    .top-inner{ padding: 14px 20px; }
+    nav.top-nav{ gap: 14px; }
+    nav.top-nav a{ font-size: 13px; }
+    .wrap{ padding: 0 20px; }
+    .hero{ padding: 56px 0 44px; }
+    .telemetry{ grid-template-columns: 1fr; }
+    .telemetry div{ border-left: none; border-top: 1px solid var(--line); }
+    .telemetry div:first-child{ border-top: none; }
+    .project{ padding: 24px 20px 4px; }
+    .skill-groups{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="mark">Marie Stoudt</div>
+    <nav class="top-nav">
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <p class="hero-kicker">Technical Success Architect at Platform Science</p>
+    <h1 class="hero-title">I turn fragmented operational data into systems that run themselves.</h1>
+    <p class="hero-lede">I build AI-assisted pipelines and monitoring agents that turn the data most organizations never centralize into decisions, and catch problems before anyone has to ask.</p>
+
+    <div class="telemetry">
+      <div>
+        <span class="num">~1,700</span>
+        <span class="label">customer accounts modeled for release eligibility</span>
+      </div>
+      <div>
+        <span class="num">10k+/mo</span>
+        <span class="label">support cases analyzed automatically for root cause</span>
+      </div>
+      <div>
+        <span class="num">~30%</span>
+        <span class="label">manual reporting effort cut by centralizing KPI dashboards</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="work">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <span>3 case studies</span>
+    </div>
+
+    <!-- PROJECT 1 -->
+    <div class="project">
+      <p class="project-tag">Data operations &amp; automation</p>
+      <h3>AI-Assisted Customer Intelligence &amp; Data Operations</h3>
+      <p class="desc">A workflow that turns fragmented customer data into automated pipelines, autonomous agents, and metrics customers can actually act on, including a safety insight built by connecting data that used to sit apart.</p>
+
+      <div class="project-sub">
+        <h4>The problem</h4>
+        <p>Customer, product, support, device, and compliance data lived in disconnected systems with no centralized intelligence layer. Every question meant manual extraction and reconciliation, effectively making one person the organization's human data warehouse.</p>
+      </div>
+
+      <div class="project-sub">
+        <h4>What I built</h4>
+        <ul>
+          <li>AI-assisted SQL pipelines against Snowflake, plus reconciliation and validation that caught incorrect metric logic before it shipped</li>
+          <li>Customer-health models and automated delivery of hard metrics into Totango and Domo, so other teams could self-serve</li>
+          <li>The first automation now runs fully headless, with about 10 to 15 more being converted from manual to autonomous, on the way to an orchestrator that runs and builds sub-agents as needed</li>
+          <li>A cross-product proof of concept linking safety alerts to duty-cycle hours, route, and GPS data to surface driver-fatigue patterns, and customers responded well when I showed them an early version</li>
+        </ul>
+      </div>
+
+      <a href="meridian-value-review.pdf" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#E8A33D;border:1px solid #8A6529;border-radius:4px;padding:8px 14px;margin-bottom:22px;">
+        View sample deliverable: customer value-review deck (PDF)
+      </a>
+
+      <div class="fold">
+        <button class="fold-btn" aria-expanded="false">
+          <span>Sub-project: Support Intelligence &amp; Root-Cause Analysis</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="fold-panel">
+          <div class="fold-panel-inner">
+            <p>Salesforce Case Feed held the most useful support detail but wasn't reportable through standard tools, so teams manually read case histories to spot recurring issues. That approach broke down at scale: large customers ran 200 to 600 cases, and all-customer review meant tens of thousands monthly.</p>
+            <p>I designed a workflow (via Gemini CLI, plain-English interaction) merging standard case fields with Case Feed data pulled through the API, then analyzing the consolidated set for trends, problem vehicles, and root-cause indicators.</p>
+            <ul>
+              <li><strong>Validated</strong> against issues Support leadership had already reviewed manually. The AI reached the same conclusions every time, and once found a root cause across hundreds of cases in under five minutes</li>
+              <li><strong>Operational impact:</strong> one analysis flagged specific problem vehicles, leading directly to targeted equipment replacement</li>
+              <li><strong>My role:</strong> problem framing, workflow and prompt design, directing script/API build-out, testing, leadership validation, and rollout to other teams, rather than manual engineering</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-line">
+        <span>AI-assisted SQL</span><span>Snowflake</span><span>Autonomous agents</span>
+        <span>Salesforce API</span><span>Python</span><span>Gemini CLI</span>
+        <span>Data reconciliation</span><span>Prompt engineering</span><span>Human-in-the-loop AI</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 -->
+    <div class="project">
+      <p class="project-tag">Release &amp; migration governance</p>
+      <h3>Enterprise Release Readiness &amp; Adoption Intelligence</h3>
+      <p class="desc">A system that tracks who's eligible for a rollout, where they're stuck, and what's blocking them. Built for a 1,700-customer SaaS release and extended to a compliance-sensitive ELD migration with an autonomous risk-flagging agent.</p>
+
+      <div class="project-sub">
+        <h4>Case study A: the 1,700-customer rollout</h4>
+        <p>Six planned milestones didn't map cleanly to reality: some unlocked no customers because features weren't ready, while the ones that did unlock customers evolved into further sub-releases. The data needed to manage it was scattered across 8–10 systems that kept changing shape underneath the project.</p>
+        <ul>
+          <li>Built an eligibility model across ~1,700 accounts with milestone and sub-release logic, adoption funnel, Jira onboarding/staleness tracking, and leadership dashboards</li>
+          <li>Caught a data-quality bug, duplicate join rows across snapshot dates, that was silently corrupting dashboard metrics</li>
+          <li>Separated customer-specific onboarding blockers from near-universal product gaps, routing the latter to Product instead of individual CSMs</li>
+        </ul>
+      </div>
+
+      <div class="fold">
+        <button class="fold-btn" aria-expanded="false">
+          <span>Case study B: PSHOS migration, proactive risk &amp; governance</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="fold-panel">
+          <div class="fold-panel-inner">
+            <p>The same eligibility/monitoring approach, applied to a higher-stakes migration: moving ELD customers off a legacy platform onto a new one, under an aggressive deadline and a two-hop migration path that had never been tested.</p>
+            <ul>
+              <li>Built an <strong>autonomous, headless agent</strong> that pulls data via API to flag migration issues daily to leadership and engineering, catching problems before support has to escalate them</li>
+              <li>Compiled undocumented migration "gotchas" from people with prior experience, since none of it existed in writing</li>
+              <li>Pushed to formalize a risk log for risks nobody had named out loud: the untested two-hop path, a fully untracked cohort sitting under a hard deadline, undocumented onboarding issues, and the compliance exposure of a milestone-based rollout for a regulated product</li>
+            </ul>
+            <p>This case study extends the first: not just monitoring a rollout, but building the system that catches problems before they're reported.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-line">
+        <span>Eligibility modeling</span><span>Adoption analytics</span><span>Multi-source integration</span>
+        <span>Autonomous monitoring</span><span>Risk governance</span><span>Jira analysis</span>
+        <span>BI/dashboard design</span><span>Change management</span>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 -->
+    <div class="project">
+      <p class="project-tag">Personal tool, self-directed</p>
+      <h3>AI Productivity Journal</h3>
+      <p class="desc">A short spoken interview replaces a timesheet at the end of each workday. The conversation itself does the categorizing, turning a day's work into a structured record of what got made, how long it took, and what it would have cost without help.</p>
+
+      <div class="stat-row-4" id="prod-stats">
+        <div><span class="num" id="prod-stat-hours">&mdash;</span><span class="label">reclaimed across logged entries</span></div>
+        <div><span class="num" id="prod-stat-mult">&mdash;</span><span class="label">estimated capacity multiplier</span></div>
+        <div><span class="num" id="prod-stat-entries">&mdash;</span><span class="label">entries logged so far</span></div>
+        <div><span class="num" id="prod-stat-impossible">&mdash;</span><span class="label">had no manual equivalent at all</span></div>
+      </div>
+      <p style="font-size:11px;color:var(--text-faint);margin:-10px 0 20px;font-style:italic;" id="prod-note"></p>
+
+      <div class="project-sub">
+        <h4>Where the time actually goes</h4>
+        <div class="legend">
+          <span><span class="swatch" style="background:var(--teal)"></span>With AI assistance</span>
+          <span><span class="swatch" style="background:var(--line)"></span>Estimated without</span>
+        </div>
+        <div id="prod-bars"></div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-btn" aria-expanded="false">
+          <span>The interview, not the timesheet</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="fold-panel">
+          <div class="fold-panel-inner">
+            <p style="margin-bottom:14px;">No live logging. Categorizing and estimating happen in conversation, at day's end, from memory. A sample exchange:</p>
+            <div class="transcript" id="prod-transcript"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-btn" aria-expanded="false">
+          <span>Scope expansion: the more interesting number isn't time</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="fold-panel">
+          <div class="fold-panel-inner">
+            <p style="margin-bottom:14px;">Time saved is the easy metric. The harder, more useful one is what became possible that wasn't before.</p>
+            <div class="scope-grid" id="prod-scope-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fold">
+        <button class="fold-btn" aria-expanded="false">
+          <span>Where this goes next</span>
+          <span class="chev">+</span>
+        </button>
+        <div class="fold-panel">
+          <div class="fold-panel-inner">
+            <p style="margin-bottom:14px;">The interview is the current bottleneck. Each phase removes a little more of the retelling.</p>
+            <div class="rm-row" id="prod-roadmap"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-line">
+        <span>Self-directed tooling</span><span>Conversational data capture</span><span>Prompt design</span>
+        <span>Personal analytics</span><span>Process design</span><span>Roadmapping</span>
+      </div>
+    </div>
+
+    <div class="pinned">
+      <p class="pin-tag">Pinned, in progress</p>
+      <h3>Featured Project 4 (outside-company)</h3>
+      <p>Reserved for an independent project outside my current employer, to show the same eye for AI opportunities holds up outside one company. Leading candidate: an AI-native interactive coaching tool. Details to follow once it's further along.</p>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span>by category</span>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h4>Data &amp; AI</h4>
+        <ul>
+          <li>Applied generative AI &amp; agent orchestration</li>
+          <li>AI-assisted SQL / Snowflake</li>
+          <li>Autonomous / headless automation</li>
+          <li>Prompt &amp; workflow design</li>
+          <li>Human-in-the-loop validation</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Platforms &amp; tools</h4>
+        <ul>
+          <li>Salesforce &amp; Salesforce API</li>
+          <li>Totango, Domo</li>
+          <li>Python, Gemini CLI</li>
+          <li>Jira</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Program &amp; risk</h4>
+        <ul>
+          <li>Eligibility &amp; adoption modeling</li>
+          <li>Release &amp; migration governance</li>
+          <li>Risk identification &amp; logging</li>
+          <li>Change management under shifting requirements</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Communication</h4>
+        <ul>
+          <li>Executive &amp; customer-facing reporting</li>
+          <li>Cross-functional collaboration</li>
+          <li>Metric design &amp; validation</li>
+          <li>Business-review narrative</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>Get in touch</h2>
+    <p>Let's talk about AI-assisted operations, data intelligence, or automation roles.</p>
+    <div class="contact-row">
+      <a href="mailto:mariestoudt@gmail.com">mariestoudt@gmail.com</a>
+      <a href="tel:3104988691">310-498-8691</a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.fold-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var panel = btn.nextElementSibling;
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if(!expanded){
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+      } else {
+        panel.style.maxHeight = 0;
+      }
+    });
+  });
+
+  // Productivity journal: reads journal-data.json so it can be updated
+  // without touching this file. Falls back to the copy below if the
+  // fetch fails (e.g. opening index.html directly from disk).
+  const PROD_JOURNAL_FALLBACK = {
+    "meta": {
+      "note": "Real data, aggregated from a personal end-of-day tracking log (2026-08-29 through 2026-09-02). Customer/account names anonymized. Only entries with a directly comparable AI-assisted vs. estimated-unassisted time are counted in the hours/multiplier stats below \u2014 entries marked 'not previously possible' or 'pending' are tracked separately rather than forced into a ratio.",
+      "reclaimedHoursTotal": 6.0,
+      "entryCount": 20,
+      "capacityMultiplier": 3.2,
+      "notPreviouslyPossibleCount": 4
+    },
+    "categoryBreakdown": [
+      { "category": "Documentation", "aiHours": 2.0, "estWithoutAiHours": 6.0 },
+      { "category": "Diagramming / Visual Mapping", "aiHours": 0.5, "estWithoutAiHours": 1.25 },
+      { "category": "Automation / AI Tooling", "aiHours": 0.25, "estWithoutAiHours": 1.5 }
+    ],
+    "scopeExpansion": [
+      { "title": "Autonomous case tracking", "before": "Reviewing and escalating cases was a multi-day manual cycle per pass.", "after": "A fully autonomous tracker pulls, reviews, and alerts on cases daily. Runs in minutes, no manual cycle required." },
+      { "title": "Data that was effectively unreachable", "before": "Key account identifiers were scattered across disconnected system fields, not reliably visible at all.", "after": "Sourced and reconciled in about an hour. Not realistically doable manually in the time available." },
+      { "title": "This journal itself", "before": "No system existed for tracking personal output. It just didn't happen.", "after": "Designed and running within a day and a half, entirely in conversation, with no separate tool to learn." },
+      { "title": "Rush turnarounds", "before": "Consolidating account data into revenue-tied materials alone, under time pressure, wasn't realistic for one person.", "after": "Pulled, consolidated, and turned into finished slides in an afternoon." }
+    ],
+    "sampleInterview": [
+      { "speaker": "interviewer", "text": "Walk me through today. What did you actually produce?" },
+      { "speaker": "user", "text": "I got the manual trigger working for a reporting run that used to be fully manual. Now it's just a 15-minute trigger." },
+      { "speaker": "interviewer", "text": "Got it, that's Automation / AI Tooling. Before this, how long did that reporting take start to finish?" },
+      { "speaker": "user", "text": "Probably an hour, sometimes two, depending on how messy the source data was." },
+      { "speaker": "interviewer", "text": "Logged: 15 minutes assisted versus roughly an hour-plus estimated. Anything else today?" },
+      { "speaker": "user", "text": "Yeah, I also sourced some account identifiers that were scattered across a few disconnected system fields." },
+      { "speaker": "interviewer", "text": "That's data wrangling. Realistically, could you have pulled that together manually in the time you had?" },
+      { "speaker": "user", "text": "Honestly, no. Not without hours I didn't have." },
+      { "speaker": "interviewer", "text": "Logging that one as \"not previously possible\" rather than a time comparison. That's its own category, and it matters as much as the hours saved." }
+    ],
+    "roadmap": [
+      { "phase": "Now", "title": "Manual end-of-day interview", "detail": "Conversational capture, no live logging. Entries categorized and estimated together at day's end, currently running on real data since late August 2026." },
+      { "phase": "Next", "title": "Calendar-aware interview", "detail": "Once calendar/document connectors are available, the interview opens already aware of the day's meetings and blocked time, and asks about the gaps instead of starting cold." },
+      { "phase": "Later", "title": "AI-populated calendar", "detail": "The end goal: Claude drafts calendar tasks directly from observed work patterns, without being told what the tasks are first, flipping the interview from a data-capture step into a review-and-correct step." }
+    ]
+  };
+
+  function renderJournal(data) {
+    document.getElementById('prod-stat-hours').innerHTML = data.meta.reclaimedHoursTotal + ' hrs';
+    document.getElementById('prod-stat-mult').innerHTML = data.meta.capacityMultiplier + '&times;';
+    document.getElementById('prod-stat-entries').textContent = data.meta.entryCount;
+    document.getElementById('prod-stat-impossible').textContent = data.meta.notPreviouslyPossibleCount;
+    document.getElementById('prod-note').textContent = data.meta.note;
+
+    const bars = document.getElementById('prod-bars');
+    data.categoryBreakdown.forEach(row => {
+      const pct = Math.round((row.aiHours / row.estWithoutAiHours) * 100);
+      const div = document.createElement('div');
+      div.className = 'bar-row';
+      div.innerHTML =
+        '<div class="cat">' + row.category + '</div>' +
+        '<div class="bar-track"><div class="bar-fill without"></div><div class="bar-fill with" style="width:' + pct + '%"></div></div>' +
+        '<div class="ratio">' + row.aiHours + 'h / ' + row.estWithoutAiHours + 'h</div>';
+      bars.appendChild(div);
+    });
+
+    const transcript = document.getElementById('prod-transcript');
+    data.sampleInterview.forEach(line => {
+      const div = document.createElement('div');
+      div.className = 'tline ' + line.speaker;
+      div.innerHTML = '<div class="who">' + (line.speaker === 'interviewer' ? 'Claude' : 'Me') + '</div><p>' + line.text + '</p>';
+      transcript.appendChild(div);
+    });
+
+    const scopeGrid = document.getElementById('prod-scope-grid');
+    data.scopeExpansion.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'scope-card';
+      div.innerHTML =
+        '<h5>' + item.title + '</h5>' +
+        '<span class="slabel">BEFORE</span><p class="before">' + item.before + '</p>' +
+        '<span class="slabel">NOW</span><p class="after">' + item.after + '</p>';
+      scopeGrid.appendChild(div);
+    });
+
+    const roadmap = document.getElementById('prod-roadmap');
+    data.roadmap.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'rm-item';
+      div.innerHTML =
+        '<div class="phase">' + item.phase.toUpperCase() + '</div>' +
+        '<h5>' + item.title + '</h5><p>' + item.detail + '</p>';
+      roadmap.appendChild(div);
+    });
+  }
+
+  fetch('journal-data.json')
+    .then(r => r.json())
+    .then(renderJournal)
+    .catch(() => renderJournal(PROD_JOURNAL_FALLBACK));
+</script>
+
+</body>
+</html>
