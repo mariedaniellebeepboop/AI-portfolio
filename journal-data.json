@@ -1,64 +1,143 @@
 {
   "meta": {
-    "note": "Real data, aggregated from a personal end-of-day tracking log (2026-08-29 through 2026-09-02). Customer/account names anonymized. Only entries with a directly comparable AI-assisted vs. estimated-unassisted time are counted in the hours/multiplier stats below \u2014 entries marked 'not previously possible' or 'pending' are tracked separately rather than forced into a ratio.",
-    "reclaimedHoursTotal": 6.0,
-    "entryCount": 20,
-    "capacityMultiplier": 3.2,
-    "notPreviouslyPossibleCount": 4
+    "note": "Real data, aggregated from a personal end-of-day tracking log (2026-08-29 through 2026-09-25). Customer/account names anonymized. Only entries with a directly comparable AI-assisted vs. estimated-unassisted time are counted in the hours/multiplier stats below — entries marked 'not previously possible' or 'pending' are tracked separately rather than forced into a ratio. Unassisted estimates use the low end of any range.",
+    "reclaimedHoursTotal": 42.2,
+    "entryCount": 83,
+    "capacityMultiplier": 2.2,
+    "notPreviouslyPossibleCount": 19
   },
   "categoryBreakdown": [
-    { "category": "Documentation", "aiHours": 2.0, "estWithoutAiHours": 6.0 },
-    { "category": "Diagramming / Visual Mapping", "aiHours": 0.5, "estWithoutAiHours": 1.25 },
-    { "category": "Automation / AI Tooling", "aiHours": 0.25, "estWithoutAiHours": 1.5 }
+    {
+      "category": "Customer Value Reporting",
+      "aiHours": 12,
+      "estWithoutAiHours": 21
+    },
+    {
+      "category": "Automation / AI Tooling",
+      "aiHours": 6.5,
+      "estWithoutAiHours": 18
+    },
+    {
+      "category": "Data Wrangling / Tracking",
+      "aiHours": 8,
+      "estWithoutAiHours": 18
+    },
+    {
+      "category": "Documentation",
+      "aiHours": 2.75,
+      "estWithoutAiHours": 8
+    },
+    {
+      "category": "Diagramming / Visual Mapping",
+      "aiHours": 2,
+      "estWithoutAiHours": 4.25
+    },
+    {
+      "category": "Planning",
+      "aiHours": 2,
+      "estWithoutAiHours": 4
+    },
+    {
+      "category": "Stakeholder Communication",
+      "aiHours": 0.75,
+      "estWithoutAiHours": 3
+    }
   ],
   "scopeExpansion": [
     {
       "title": "Autonomous case tracking",
       "before": "Reviewing and escalating cases was a multi-day manual cycle per pass.",
-      "after": "A fully autonomous tracker pulls, reviews, and alerts on cases daily \u2014 runs in minutes, no manual cycle required."
+      "after": "A fully autonomous tracker pulls, reviews, and alerts on cases daily — runs in minutes, no manual cycle required."
     },
     {
       "title": "Data that was effectively unreachable",
       "before": "Key account identifiers were scattered across disconnected system fields, not reliably visible at all.",
-      "after": "Sourced and reconciled in about an hour \u2014 not realistically doable manually in the time available."
+      "after": "Sourced and reconciled in about an hour — not realistically doable manually in the time available."
     },
     {
       "title": "This journal itself",
-      "before": "No system existed for tracking personal output \u2014 it just didn't happen.",
+      "before": "No system existed for tracking personal output — it just didn't happen.",
       "after": "Designed and running within a day and a half, entirely in conversation, with no separate tool to learn."
     },
     {
       "title": "Rush turnarounds",
       "before": "Consolidating account data into revenue-tied materials alone, under time pressure, wasn't realistic for one person.",
       "after": "Pulled, consolidated, and turned into finished slides in an afternoon."
+    },
+    {
+      "title": "Business-review prep that schedules itself",
+      "before": "Spotting upcoming customer reviews meant checking a tracker by hand and remembering to block prep time.",
+      "after": "A scheduler reads the review tracker, and anything inside a 30-day window gets a reminder task and, when the timing is known, a prep block on the calendar."
+    },
+    {
+      "title": "A weekly recap nobody had time to write",
+      "before": "No weekly summary existed. Open loops and action items lived in scattered meetings, threads, and notes.",
+      "after": "A recap pulls the week's meetings, email, chat, and notes into a manager-ready summary, and flags mismatched notes instead of guessing."
+    },
+    {
+      "title": "Building for other teams",
+      "before": "Other teams' tracking gaps weren't mine to solve, and there was no time to try.",
+      "after": "Built a support-case tracker for another team and a log-run automation for a colleague, about two hours each."
     }
   ],
   "sampleInterview": [
-    { "speaker": "interviewer", "text": "Walk me through today \u2014 what did you actually produce?" },
-    { "speaker": "user", "text": "I got the manual trigger working for a reporting run that used to be fully manual \u2014 now it's just a 15-minute trigger." },
-    { "speaker": "interviewer", "text": "Got it, that's Automation / AI Tooling. Before this, how long did that reporting take start to finish?" },
-    { "speaker": "user", "text": "Probably an hour, sometimes two, depending on how messy the source data was." },
-    { "speaker": "interviewer", "text": "Logged: 15 minutes assisted vs. roughly an hour-plus estimated. Anything else today?" },
-    { "speaker": "user", "text": "Yeah, I also sourced some account identifiers that were scattered across a few disconnected system fields." },
-    { "speaker": "interviewer", "text": "That's data wrangling. Realistically, could you have pulled that together manually in the time you had?" },
-    { "speaker": "user", "text": "Honestly, no \u2014 not without hours I didn't have." },
-    { "speaker": "interviewer", "text": "Logging that one as 'not previously possible' rather than a time comparison \u2014 that's its own category, and it matters as much as the hours saved." }
+    {
+      "speaker": "interviewer",
+      "text": "Walk me through today — what did you actually produce?"
+    },
+    {
+      "speaker": "user",
+      "text": "I got the manual trigger working for a reporting run that used to be fully manual — now it's just a 15-minute trigger."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Got it, that's Automation / AI Tooling. Before this, how long did that reporting take start to finish?"
+    },
+    {
+      "speaker": "user",
+      "text": "Probably an hour, sometimes two, depending on how messy the source data was."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Logged: 15 minutes assisted vs. roughly an hour-plus estimated. Anything else today?"
+    },
+    {
+      "speaker": "user",
+      "text": "Yeah, I also sourced some account identifiers that were scattered across a few disconnected system fields."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "That's data wrangling. Realistically, could you have pulled that together manually in the time you had?"
+    },
+    {
+      "speaker": "user",
+      "text": "Honestly, no — not without hours I didn't have."
+    },
+    {
+      "speaker": "interviewer",
+      "text": "Logging that one as 'not previously possible' rather than a time comparison — that's its own category, and it matters as much as the hours saved."
+    }
   ],
   "roadmap": [
     {
-      "phase": "Now",
+      "phase": "Done",
       "title": "Manual end-of-day interview",
-      "detail": "Conversational capture, no live logging. Entries categorized and estimated together at day's end \u2014 currently running on real data since late August 2026."
+      "detail": "Conversational capture, no live logging. Entries categorized and estimated together at day's end, running on real data since late August 2026."
     },
     {
-      "phase": "Next",
-      "title": "Calendar-aware interview",
-      "detail": "Once calendar/document connectors are available, the interview opens already aware of the day's meetings and blocked time, and asks about the gaps instead of starting cold."
+      "phase": "Now",
+      "title": "Calendar-aware capture",
+      "detail": "Entries are now drafted from the day's calendar blocks and reviewed and corrected, instead of retold from scratch. A weekly-recap tool reads calendar, email, chat, and meeting notes; a week-ahead planner is built and awaiting its first full run."
+    },
+    {
+      "phase": "Now",
+      "title": "AI-populated tasks",
+      "detail": "A first version is live: upcoming business reviews automatically become reminder tasks and calendar prep blocks. Next step is duplicate protection so it can run on a schedule."
     },
     {
       "phase": "Later",
-      "title": "AI-populated calendar",
-      "detail": "The end goal: Claude drafts calendar tasks directly from observed work patterns, without being told what the tasks are first \u2014 flipping the interview from a data-capture step into a review-and-correct step."
+      "title": "A template for the team",
+      "detail": "Package the pattern so colleagues outside engineering can run their own journal and dashboard, giving a bigger sample than one person's data."
     }
   ]
 }
